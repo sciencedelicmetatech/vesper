@@ -13,7 +13,8 @@ def test_update_win():
         p.update(True)
     p.update(False)
     assert p.n == 10
-    assert abs(p.mean - 0.9) < 0.05
+    # Prior (1, 1) + 9 wins + 1 loss = alpha=10, beta=2, mean = 10/12
+    assert abs(p.mean - 10.0 / 12.0) < 1e-9
 
 
 def test_prob_above_symmetric():
