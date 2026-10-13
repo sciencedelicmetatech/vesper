@@ -33,10 +33,12 @@ def test_zero_momentum_refuses():
 
 
 def test_low_volume_crypto_tick():
-    """Crypto bars often have volume of 1. Gate must not refuse them."""
-    d = Decider(DeciderConfig(explore_ticks=0, min_volume=1))
+    """Crypto bars often have volume of 1. Volume gate must not refuse them."""
+    d = Decider(DeciderConfig(explore_ticks=10, min_volume=1))
     r = d.decide(_tick(mom=0.5, vol=1))
+    # Volume gate accepted the tick; exploration phase fires.
     assert isinstance(r, Signal)
+    assert r.reason == "explore"
 
 
 def test_buy_on_positive_momentum():
