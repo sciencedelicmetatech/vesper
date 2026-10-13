@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vesper"
+version = "1.0.0"
+description = "Deterministic, refusal-first trading agent with hash-chained audit."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{name = "Raell", email = "raell@sciencedelicmetatech.example"}]
+keywords = ["trading", "bayesian", "determinism", "audit", "refusal"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+[project.urls]
+Homepage = "https://github.com/sciencedelicmetatech/vesper"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.4", "build>=1.0"]
+
+[tool.setuptools.packages.find]
+include = ["vesper*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
