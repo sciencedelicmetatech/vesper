@@ -11,7 +11,9 @@ Design principles
   to lose if the stop is hit, divided by the stop distance in dollars.
 - Hard cap: regardless of risk math, no single position may exceed
   ``max_position_pct`` of equity.
-- Pure function of (equity, price) -> qty. No broker calls, no state.
+- Pure function of (equity, price) -> qty. No broker calls, no state, no
+  randomness. Same inputs always produce the same output — required by
+  ``scripts/run_determinism.py``.
 """
 from __future__ import annotations
 
@@ -44,14 +46,22 @@ class Sizer:
             Current account equity in quote currency. Must be > 0.
         price : float
             Current market price of the instrument. Must be > 0.
+
+        Returns
+        -------
+        float
+            Non-negative quantity. Zero means "skip this trade" — the
+            caller treats that as a soft refusal, not an error.
         """
         if equity <= 0 or price <= 0:
             return 0.0
         if self.stop_distance_pct <= 0:
             raise ValueError("stop_distance_pct must be > 0")
+        if self.risk_per_trade < 0 or self.max_position_pct < 0:
+            raise ValueError("risk_per_trade and max_position_pct must be >= 0")
 
-        # Risk-based size: how many units such that
-        #   qty * price * stop_distance_pct == equity * risk_per_trade
+        # Risk-based size: units such that
+        #     qty * price * stop_distance_pct == equity * risk_per_trade
         risk_dollars = equity * self.risk_per_trade
         size_by_risk = risk_dollars / (price * self.stop_distance_pct)
 
