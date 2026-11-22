@@ -4,44 +4,44 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vesper"
-version = "1.0.0"
-description = "Deterministic, refusal-first trading agent with hash-chained audit."
+version = "0.1.0"
+description = "Refusal-first trading agent reference implementation (research artifact)"
 readme = "README.md"
 requires-python = ">=3.10"
-license = "Apache-2.0"
-license-files = ["LICENSE"]
-authors = [{name = "Raell", email = "raell@sciencedelicmetatech.example"}]
-keywords = ["trading", "bayesian", "determinism", "audit", "refusal"]
+license = { text = "MIT" }
+authors = [{ name = "Vesper Contributors" }]
+keywords = ["trading", "research", "bayesian", "refusal-first", "audit"]
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Science/Research",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Office/Business :: Financial :: Investment",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Office/Business :: Financial :: Investment",
+  "Intended Audience :: Science/Research",
 ]
-
-[project.urls]
-Homepage = "https://github.com/sciencedelicmetatech/vesper"
+dependencies = []
 
 [project.optional-dependencies]
 dev = [
-    "pytest==8.3.4",
-    "ruff==0.8.4",
-    "build==1.2.2",
-    "httpx>=0.27",
+  "pytest==8.3.4",
+  "ruff==0.8.4",
+  "build==1.2.2",
+  "httpx>=0.27",
 ]
 
 [tool.setuptools.packages.find]
 include = ["vesper*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
 
 [tool.ruff]
 line-length = 100
 target-version = "py310"
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I"]
+select = ["E", "F", "I", "B", "UP", "SIM"]
 ignore = ["E501"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
