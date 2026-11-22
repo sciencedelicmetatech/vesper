@@ -21,9 +21,6 @@ import time
 from typing import List, Optional
 
 
-# Statuses that mean the order is still actionable at the broker side.
-# If we crash while an order is in one of these, reconciliation must
-# resolve it on restart.
 UNRESOLVED_STATUSES = (
     "new",
     "accepted",
